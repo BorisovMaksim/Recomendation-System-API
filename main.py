@@ -15,6 +15,7 @@ class status (Resource):
             return {'data': 'An Error Occurred during fetching Api'}
 
 
+
 class Sum(Resource):
     def get(self, a, b):
         return jsonify({'data': a+b})
