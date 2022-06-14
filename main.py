@@ -6,7 +6,6 @@ app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
-
 class status (Resource):
     def get(self):
         try:
