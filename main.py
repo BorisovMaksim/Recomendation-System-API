@@ -5,6 +5,7 @@ from data_loader import DataLoader
 
 
 
+
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
