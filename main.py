@@ -30,6 +30,7 @@ class Playlist(Resource):
         tracks_uri = json.loads("".join(args['tracks']))
         cur = con.cursor()
 
+
         # similar_tracks = system.model.predict(tracks_uri=tracks_uri, n=args['n'])
         return tracks_uri.to_json()
 
