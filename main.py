@@ -20,6 +20,7 @@ con = psycopg2.connect(DATABASE_URL)
 
 
 
+
 class Playlist(Resource):
     def get(self):
         return """You can use POST for track recommendation! For example """
