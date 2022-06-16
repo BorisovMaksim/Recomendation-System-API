@@ -6,13 +6,11 @@ from sqlalchemy import create_engine
 from annoy import AnnoyIndex
 
 
-
 CONFIG = yaml.safe_load(open('credentials.yml'))
-DATABASE_URL = 'postgresql://rqjcvpftjbtcxc:38f3cf18fc05ce6c1e506bcbd6ca071733c47466e564aba0fd50e00c0b1d68d8@ec2-52-44-13-158.compute-1.amazonaws.com:5432/d7s884cu5q8g6e'
 
 class DataLoader:
     def __init__(self):
-        self.engine = create_engine(DATABASE_URL, echo=False)
+        self.engine = create_engine(CONFIG['DATABASE_URL'], echo=False)
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
                                                             client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET'],
                                                             redirect_uri=CONFIG['SPOTIFY']['REDIRECT_URI'],
