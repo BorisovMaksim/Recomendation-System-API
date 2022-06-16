@@ -3,24 +3,19 @@ from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 from data_loader import DataLoader
 
-
-
-
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
 parser = reqparse.RequestParser()
-parser.add_argument('tracks',  type=list, location='form', required=True,  action='append')
+parser.add_argument('tracks', type=list, location='form', required=True, action='append')
 parser.add_argument('n', type=int, location='form', required=True)
 loader = DataLoader()
 
 
-
-
 class Playlist(Resource):
     def get(self):
-        return """You can use POST for track recommendation! For example """
+        return """You can use POST for track recommendation! Parameters are 'tracks' and 'n'"""
 
     def post(self):
         args = parser.parse_args()
@@ -30,8 +25,6 @@ class Playlist(Resource):
         return similar_tracks
 
 
-
 api.add_resource(Playlist, '/')
 if __name__ == '__main__':
     app.run()
-
