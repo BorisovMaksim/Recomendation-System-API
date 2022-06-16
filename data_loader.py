@@ -37,6 +37,7 @@ class DataLoader:
         playlist = audio_features.mean(axis=0)
         return playlist
 
+
     def load_similar_tracks(self, playlist, n):
         similar_playlists = self.model.get_nns_by_vector(playlist, 100)
         con = self.engine.connect()
