@@ -26,8 +26,9 @@ class Playlist(Resource):
         args = parser.parse_args()
         tracks_uri = [''.join(track) for track in args['tracks']]
         playlist = loader.load_audio_features(tracks=tracks_uri)
-        similar_tracks = loader.load_similar_tracks(playlist, args['n'])
-        return similar_tracks
+        return playlist
+        # similar_tracks = loader.load_similar_tracks(playlist, args['n'])
+        # return similar_tracks
 
 
 
