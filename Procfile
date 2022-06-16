@@ -1,1 +1,1 @@
-web: gunicorn recommendation-system-api.wsgi
+web: gunicorn main:app
