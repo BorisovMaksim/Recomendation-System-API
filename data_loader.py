@@ -25,6 +25,7 @@ class DataLoader:
         self.model = AnnoyIndex(len(self.avg), metric='angular')
         self.model.load('/app/model/annoy_full_data.ann')
 
+
     def load_audio_features(self, tracks):
         audio_features = pd.DataFrame([x for x in self.sp.audio_features(tracks=tracks) if x is not None])[self.audio_cols]
         tracks = self.sp.tracks(tracks)
