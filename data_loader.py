@@ -10,7 +10,7 @@ CONFIG = yaml.safe_load(open('credentials.yml'))
 
 class DataLoader:
     def __init__(self):
-        self.engine = create_engine(CONFIG['DATABASE_URL'], echo=False)
+        self.engine = create_engine(CONFIG['DATABASE']['URL'], echo=False)
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
                                                             client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET'],
                                                             redirect_uri=CONFIG['SPOTIFY']['REDIRECT_URI'],
