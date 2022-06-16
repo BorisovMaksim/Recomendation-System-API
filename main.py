@@ -23,6 +23,7 @@ class Playlist(Resource):
         return """You can use POST for track recommendation! For example """
 
     def post(self):
+        return "Is it really working?"
         args = parser.parse_args()
         tracks_uri = [''.join(track) for track in args['tracks']]
         playlist = loader.load_audio_features(tracks=tracks_uri)
