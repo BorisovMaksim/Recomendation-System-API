@@ -30,7 +30,6 @@ class DataLoader:
     def load_audio_features(self, tracks):
         audio_features = pd.DataFrame([x for x in self.sp.audio_features(tracks=tracks) if x is not None])[
             self.audio_cols]
-        return audio_features
         tracks = self.sp.tracks(tracks)
         audio_features['num_artists'] = len(
             [artist['name'] for track in tracks['tracks'] for artist in track['artists']])
