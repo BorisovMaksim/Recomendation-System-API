@@ -22,7 +22,7 @@ class DataLoader:
         self.avg = [235131.93, 0.55, 0.58, 5.26, -9.66, 0.65, 0.09, 0.35, 0.22, 0.21, 0.48, 119.98, 38.1, 66.3]
         self.std = [39767.41, 0.18, 0.26, 3.55, 5.62, 0.48, 0.12, 0.35, 0.35, 0.19, 0.26, 29.92, 30.3, 53.7]
         self.model = AnnoyIndex(len(self.avg), metric='angular')
-        self.model.load('/app/model/annoy_full_data.ann')
+        self.model.load('/model/annoy_full_data.ann')
 
     def load_audio_features(self, tracks):
         audio_features = pd.DataFrame([x for x in self.sp.audio_features(tracks=tracks) if x is not None])[
