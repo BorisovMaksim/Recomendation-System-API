@@ -32,8 +32,8 @@ class Playlist(Resource):
         tracks_uri = loader.load_tracks_uri(args['tracks'][0])
         playlist = loader.load_audio_features(tracks=tracks_uri)
         similar_tracks = loader.load_similar_tracks(playlist, args['n'])
-        names = {(my_track['name'], ", ".join([artist['name'] for artist in my_track['artists']])) for my_track in
-                 similar_tracks}
+        names = [(my_track['name'], ", ".join([artist['name'] for artist in my_track['artists']])) for my_track in
+                 similar_tracks]
         return names
 
 
