@@ -8,9 +8,10 @@ api = Api(app)
 CORS(app)
 
 parser = reqparse.RequestParser()
-parser.add_argument('tracks', type=list, location='form', required=True, action='append')
+parser.add_argument('tracks', type=dict, location='form', required=True, action='append')
 parser.add_argument('n', type=int, location='form', required=True)
 loader = DataLoader()
+loader.load_model()
 
 
 class Playlist(Resource):
@@ -27,4 +28,4 @@ class Playlist(Resource):
 
 api.add_resource(Playlist, '/')
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
