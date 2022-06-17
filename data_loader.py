@@ -1,5 +1,5 @@
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials,SpotifyOAuth
+from spotipy.oauth2 import SpotifyClientCredentials
 import yaml
 import pandas as pd
 from sqlalchemy import create_engine
@@ -12,7 +12,7 @@ CONFIG = yaml.safe_load(open('credentials.yml'))
 class DataLoader:
     def __init__(self):
         self.engine = create_engine(CONFIG['DATABASE']['URL'], echo=False)
-        self.sp = spotipy.Spotify(client_credentials_manager=
+        self.sp = spotipy.Spotify(auth_manager=
                                   SpotifyClientCredentials(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
                                                            client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET']))
         self.audio_cols = ["duration_ms", "danceability", "energy", "key", "loudness", "mode", "speechiness",
