@@ -12,13 +12,13 @@ CONFIG = yaml.safe_load(open('credentials.yml'))
 class DataLoader:
     def __init__(self):
         self.engine = create_engine(CONFIG['DATABASE']['URL'], echo=False)
-        # self.sp = spotipy.Spotify(client_credentials_manager=
-        #                           SpotifyClientCredentials(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
-        #                                                    client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET']))
-        self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
-                                                       client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET'],
-                                                       redirect_uri="http://localhost:8080",
-                                                       scope="user-library-read"))
+        self.sp = spotipy.Spotify(client_credentials_manager=
+                                  SpotifyClientCredentials(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
+                                                           client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET']))
+        # self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
+        #                                                client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET'],
+        #                                                redirect_uri="http://localhost:8080",
+        #                                                scope="user-library-read"))
 
         self.audio_cols = ["duration_ms", "danceability", "energy", "key", "loudness", "mode", "speechiness",
                            "acousticness", "instrumentalness", "liveness", "valence", "tempo"]
