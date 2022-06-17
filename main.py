@@ -29,6 +29,7 @@ class Playlist(Resource):
 
     def post(self):
         args = parser.parse_args()
+        print(eval(args['tracks'][0]))
         tracks_uri = loader.load_tracks_uri(args['tracks'][0])
         playlist = loader.load_audio_features(tracks=tracks_uri)
         similar_tracks = loader.load_similar_tracks(playlist, args['n'])
