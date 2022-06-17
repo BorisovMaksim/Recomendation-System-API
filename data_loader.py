@@ -15,11 +15,6 @@ class DataLoader:
         self.sp = spotipy.Spotify(client_credentials_manager=
                                   SpotifyClientCredentials(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
                                                            client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET']))
-        # self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
-        #                                                client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET'],
-        #                                                redirect_uri="http://localhost:8080",
-        #                                                scope="user-library-read"))
-
         self.audio_cols = ["duration_ms", "danceability", "energy", "key", "loudness", "mode", "speechiness",
                            "acousticness", "instrumentalness", "liveness", "valence", "tempo"]
         self.avg = [235131.93, 0.55, 0.58, 5.26, -9.66, 0.65, 0.09, 0.35, 0.22, 0.21, 0.48, 119.98, 38.1, 66.3]
