@@ -7,9 +7,18 @@ app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
+
+
+
 parser = reqparse.RequestParser()
-parser.add_argument('tracks', type=dict, location='form', required=True, action='append')
-parser.add_argument('n', type=int, location='form', required=True)
+parser.add_argument('tracks', type=dict, required=True, action='append')
+parser.add_argument('n', type=int, required=True)
+
+root_parser = reqparse.RequestParser()
+root_parser.add_argument('tracks', type=dict)
+
+
+
 loader = DataLoader()
 loader.load_model()
 
@@ -20,12 +29,14 @@ class Playlist(Resource):
 
     def post(self):
         args = parser.parse_args()
-        tracks_uri = [''.join(track) for track in args['tracks']]
+        tracks_uri = loader.load_tracks_uri(args['tracks'][0])
         playlist = loader.load_audio_features(tracks=tracks_uri)
         similar_tracks = loader.load_similar_tracks(playlist, args['n'])
-        return similar_tracks
+        names = {(my_track['name'], ", ".join([artist['name'] for artist in my_track['artists']])) for my_track in
+                 similar_tracks}
+        return names
 
 
 api.add_resource(Playlist, '/')
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

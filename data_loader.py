@@ -1,5 +1,5 @@
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyClientCredentials,SpotifyOAuth
 import yaml
 import pandas as pd
 from sqlalchemy import create_engine
@@ -15,6 +15,7 @@ class DataLoader:
         self.sp = spotipy.Spotify(client_credentials_manager=
                                   SpotifyClientCredentials(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
                                                            client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET']))
+
         self.audio_cols = ["duration_ms", "danceability", "energy", "key", "loudness", "mode", "speechiness",
                            "acousticness", "instrumentalness", "liveness", "valence", "tempo"]
         self.avg = [235131.93, 0.55, 0.58, 5.26, -9.66, 0.65, 0.09, 0.35, 0.22, 0.21, 0.48, 119.98, 38.1, 66.3]
@@ -23,6 +24,13 @@ class DataLoader:
 
     def load_model(self):
         self.model.load('model/annoy_full_data.ann')
+
+    def load_tracks_uri(self, data):
+        artist_track_items = [self.sp.search(q=f"artist:{artist}+track:{track}", type='track')['tracks']['items'] for
+                              artist, track in data.items()]
+        uris = [item[0]['uri'] for item in artist_track_items if len(item) > 0]
+        return uris
+
 
     def load_audio_features(self, tracks):
         audio_features = pd.DataFrame([x for x in self.sp.audio_features(tracks=tracks) if x is not None])[
@@ -39,6 +47,7 @@ class DataLoader:
     def load_similar_tracks(self, playlist, n):
         similar_playlists = self.model.get_nns_by_vector(playlist, 1000)
         con = self.engine.connect()
-        similar_tracks = con.execute(f"SELECT tracks FROM playlist_heroku WHERE playlist_id IN"
+        similar_uris = con.execute(f"SELECT tracks FROM playlist_heroku WHERE playlist_id IN"
                                      f"({','.join([str(x) for x in similar_playlists])})")
-        return similar_tracks.fetchall()[0][0][:n]
+        similar_tracks = [self.sp.track(uri) for uri in similar_uris.fetchall()[0][0][:n]]
+        return similar_tracks
