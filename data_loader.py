@@ -28,7 +28,10 @@ class DataLoader:
         artist_track_items = [self.sp.search(q=f"artist:%{artist}+track:%{track}", type='track')['tracks']['items'] for
                               artist, track in data.items()]
         uris = [item[0]['uri'] for item in artist_track_items if len(item) > 0]
-        return uris
+        searches = [self.sp.search(q=f"artist:%'Ed sheeran'+track:%'photograph'", type='track'),
+                    self.sp.search(q=f"artist:%Ed sheeran+track:%photograph", type='track'),
+                    self.sp.search(q=f"artist:Ed sheeran+track:photograph", type='track')]
+        return searches
 
 
     def load_audio_features(self, tracks):
