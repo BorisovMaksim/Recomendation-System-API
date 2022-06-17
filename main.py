@@ -2,6 +2,8 @@ from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 from data_loader import DataLoader
+import logging
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -17,10 +19,9 @@ parser.add_argument('n', type=int, required=True)
 root_parser = reqparse.RequestParser()
 root_parser.add_argument('tracks', type=dict)
 
-
-
 loader = DataLoader()
 loader.load_model()
+
 
 
 class Playlist(Resource):
@@ -30,6 +31,7 @@ class Playlist(Resource):
     def post(self):
         args = parser.parse_args()
         tracks_uri = loader.load_tracks_uri(args['tracks'][0])
+        return tracks_uri
         playlist = loader.load_audio_features(tracks=tracks_uri)
         similar_tracks = loader.load_similar_tracks(playlist, args['n'])
         names = [(my_track['name'], ", ".join([artist['name'] for artist in my_track['artists']])) for my_track in
