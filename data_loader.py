@@ -17,7 +17,7 @@ class DataLoader:
         #                                                    client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET']))
         self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CONFIG['SPOTIFY']['CLIENT_ID'],
                                                        client_secret=CONFIG['SPOTIFY']['CLIENT_SECRET'],
-                                                       redirect_uri=CONFIG['SPOTIFY']['REDIRECT_URI'],
+                                                       redirect_uri="http://localhost:8080 ",
                                                        scope="user-library-read"))
 
         self.audio_cols = ["duration_ms", "danceability", "energy", "key", "loudness", "mode", "speechiness",
