@@ -31,7 +31,6 @@ class Playlist(Resource):
     def post(self):
         args = parser.parse_args()
         tracks_uri = loader.load_tracks_uri(args['tracks'][0])
-        return tracks_uri
         playlist = loader.load_audio_features(tracks=tracks_uri)
         similar_tracks = loader.load_similar_tracks(playlist, args['n'])
         names = [(my_track['name'], ", ".join([artist['name'] for artist in my_track['artists']])) for my_track in
