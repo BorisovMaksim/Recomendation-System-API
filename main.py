@@ -2,26 +2,17 @@ from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 from data_loader import DataLoader
-import logging
-
 
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
-
-
-
 parser = reqparse.RequestParser()
 parser.add_argument('tracks', type=dict, required=True, action='append')
 parser.add_argument('n', type=int, required=True)
 
-root_parser = reqparse.RequestParser()
-root_parser.add_argument('tracks', type=dict)
-
 loader = DataLoader()
 loader.load_model()
-
 
 
 class Playlist(Resource):

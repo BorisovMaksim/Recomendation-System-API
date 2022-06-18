@@ -5,7 +5,6 @@ import pandas as pd
 from sqlalchemy import create_engine
 from annoy import AnnoyIndex
 
-
 CONFIG = yaml.safe_load(open('credentials.yml'))
 
 
@@ -30,9 +29,9 @@ class DataLoader:
         uris = [item[0]['uri'] for item in artist_track_items if len(item) > 0]
         return uris
 
-
     def load_audio_features(self, tracks):
-        audio_features = pd.DataFrame([x for x in self.sp.audio_features(tracks=tracks) if x is not None])[self.audio_cols]
+        audio_features = pd.DataFrame([x for x in self.sp.audio_features(tracks=tracks) if x is not None])[
+            self.audio_cols]
 
         tracks = self.sp.tracks(tracks)
         audio_features['num_artists'] = len(
@@ -47,6 +46,6 @@ class DataLoader:
         similar_playlists = self.model.get_nns_by_vector(playlist, 1000)
         con = self.engine.connect()
         similar_uris = con.execute(f"SELECT tracks FROM playlist_heroku WHERE playlist_id IN"
-                                     f"({','.join([str(x) for x in similar_playlists])})")
+                                   f"({','.join([str(x) for x in similar_playlists])})")
         similar_tracks = [self.sp.track(uri) for uri in similar_uris.fetchall()[0][0][:n]]
         return similar_tracks
