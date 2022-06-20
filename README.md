@@ -11,4 +11,5 @@ tracks = {
     'n': 10
 }
 request = requests.post(url="https://spotify-tracks-api.herokuapp.com/", json=tracks)
+recommendation = eval(request.text)
 ```
