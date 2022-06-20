@@ -43,7 +43,7 @@ class DataLoader:
         return playlist
 
     def load_similar_tracks(self, playlist, n):
-        similar_playlists = self.model.get_nns_by_vector(playlist, 1000)
+        similar_playlists = self.model.get_nns_by_vector(playlist, 50000)
         con = self.engine.connect()
         similar_uris = con.execute(f"SELECT tracks FROM playlist_heroku WHERE playlist_id IN"
                                    f"({','.join([str(x) for x in similar_playlists])})")
