@@ -1,8 +1,16 @@
-# recomendation-system-api
-API for music recommendation system
+# Recomendation-System-API
+- This API recommends music
+- Designed using Flask
+- Deployed on Heroku
+- Available on RapidAPI
+
+## Endpoint
+- Recommendation:  `POST /`
+
 
 
 ## Basic Usage
+ 
 ```python 
 import requests
 
