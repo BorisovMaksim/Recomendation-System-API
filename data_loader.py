@@ -5,6 +5,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 from annoy import AnnoyIndex
 
+
 CONFIG = yaml.safe_load(open('credentials.yml'))
 
 
